@@ -41,7 +41,7 @@ public OnPluginStart()
 	HookEvent("player_spawn", PlayerSpawn);
 	HookEvent("player_disconnect", PlayerDissconnect);
 	HookEvent("player_activate", PlayerJoin);
-	HookEvent("player_spawn", CvarChange);
+	HookEvent("server_cvar", CvarChange);
 	
 	c_DiceText = FindConVar("dice_text");
 	c_DiceTeam = FindConVar("dice_team");
@@ -106,7 +106,7 @@ public Action:dmenu2(client, args)
 	}
 	
 }
-public CVarChange(Handle:event, const String:name[], bool:dontBroadcast)
+public CvarChange(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	c_DiceText = FindConVar("dice_text");
 	c_DiceTeam = FindConVar("dice_team");
