@@ -1,0 +1,23 @@
+"Updater"
+{
+	"Information"
+	{
+		"Version"
+		{
+			"Latest"	"1.0.1"
+		}
+		
+		"Notes"	"Changelog:"
+		"Notes"	"Added Updater Support"
+		"Notes"	"Fixed 1 Bug (ConVar reading)"
+	}
+	
+	"Files"
+	{
+		"Plugin"	"Path_SM/plugins/DiceMenu.smx"
+		"Plugin"	"Path_SM/translations/DiceMenu.phrases.txt"
+		"Plugin"	"Path_SM/translations/de/DiceMenu.phrases.txt"
+		
+		"Source"	"Path_SM/scripting/DiceMenu.sp"
+	}
+}
