@@ -2,8 +2,10 @@
 
 #include <sourcemod>
 #include <morecolors>
+#undef REQUIRE_PLUGIN
+#include <updater>
 
-#define UPDATE_URL    "http://website.com/myplugin/updatefile.txt"
+#define UPDATE_URL    "http://bitbucket.toastdev.de/sourcemod-plugins/DiceMenu.txt"
 
 public Plugin:myinfo = 
 {
@@ -59,7 +61,7 @@ public OnPluginStart()
 	
 	if (LibraryExists("updater"))
     {
-        Updater_AddPlugin(UPDATE_URL)
+        Updater_AddPlugin(UPDATE_URL);
     }
 	
 	
