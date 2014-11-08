@@ -3,12 +3,14 @@
 #include <sourcemod>
 #include <morecolors>
 
+#define UPDATE_URL    "http://website.com/myplugin/updatefile.txt"
+
 public Plugin:myinfo = 
 {
 	name = "DiceMenu",
 	author = "Toast",
 	description = "Provides a menu for the dice Plugin by Popoklopsi",
-	version = "1.0",
+	version = "1.0.1",
 	url = "sourcemod.net"
 }
 new Handle:c_DiceText;
@@ -39,14 +41,36 @@ public OnPluginStart()
 	HookEvent("player_spawn", PlayerSpawn);
 	HookEvent("player_disconnect", PlayerDissconnect);
 	HookEvent("player_activate", PlayerJoin);
+	
 	c_DiceText = FindConVar("dice_text");
 	c_DiceTeam = FindConVar("dice_team");
-	GetConVarString(c_DiceText, DiceText, sizeof(DiceText));
+	if(c_DiceText != INVALID_HANDLE){
+		GetConVarString(c_DiceText, DiceText, sizeof(DiceText));
+	}
+	if(c_DiceTeam != INVALID_HANDLE){
+		DiceTeam = GetConVarInt(c_DiceTeam);
+	}
 	CreateConVar("dicemenu_version", "1.0", "The current version of the plugin");
-	DiceTeam = GetConVarInt(c_DiceTeam);
+	
 	RegConsoleCmd("sm_dreset", dreset);
 	RegConsoleCmd("sm_dmenu", dmenu2);
+	
 	LoadTranslations("dicemenu.phrases");
+	
+	if (LibraryExists("updater"))
+    {
+        Updater_AddPlugin(UPDATE_URL)
+    }
+	
+	
+}
+
+public OnLibraryAdded(const String:name[])
+{
+    if (StrEqual(name, "updater"))
+    {
+        Updater_AddPlugin(UPDATE_URL)
+    }
 }
 
 public Action:dmenu2(client, args)
