@@ -3,7 +3,7 @@
 #undef REQUIRE_PLUGIN
 #include <updater>
 
-#define UPDATE_URL    "http://bitbucket.toastdev.de/sourcemod-plugins/raw/a18e60cec31c4d60960f3426d6b3af3481d0169d/DiceMenu.txt"
+#define UPDATE_URL    "http://bitbucket.toastdev.de/sourcemod-plugins/raw/master/DiceMenu.txt"
 
 public Plugin:myinfo = 
 {
@@ -51,7 +51,6 @@ public OnPluginStart()
 	if(c_DiceTeam != INVALID_HANDLE){
 		DiceTeam = GetConVarInt(c_DiceTeam);
 	}
-	CreateConVar("dicemenu_version", "1.0", "The current version of the plugin");
 	
 	RegConsoleCmd("sm_dreset", dreset);
 	RegConsoleCmd("sm_dmenu", dmenu2);
