@@ -10,7 +10,7 @@ public Plugin:myinfo =
 	name = "DiceMenu",
 	author = "Toast",
 	description = "Provides a menu for the dice Plugin by Popoklopsi",
-	version = "1.0.1",
+	version = "1.0.3",
 	url = "sourcemod.net"
 }
 new Handle:c_DiceText;
@@ -48,8 +48,14 @@ public OnPluginStart()
 	if(c_DiceText != INVALID_HANDLE){
 		GetConVarString(c_DiceText, DiceText, sizeof(DiceText));
 	}
+	else{
+		CreateConVar("dice_text", "dice", "Command to dice (without exclamation mark), convert to UTF-8 without BOM for special characters");
+	}
 	if(c_DiceTeam != INVALID_HANDLE){
 		DiceTeam = GetConVarInt(c_DiceTeam);
+	}
+	else{
+		CreateConVar("dice_team", "2", "2 = Only T's can dice, 3 = Only CT's can dice, 0 = Everybody can dice");
 	}
 	
 	RegConsoleCmd("sm_dreset", dreset);
@@ -62,6 +68,7 @@ public OnPluginStart()
         Updater_AddPlugin(UPDATE_URL);
     }
 	
+	AutoExecConfig();
 	
 }
 public OnLibraryAdded(const String:name[])
