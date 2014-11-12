@@ -15,8 +15,8 @@
 	"Files"
 	{
 		"Plugin"	"Path_SM/plugins/DiceMenu.smx"
-		"Plugin"	"Path_SM/translations/DiceMenu.phrases.txt"
-		"Plugin"	"Path_SM/translations/de/DiceMenu.phrases.txt"
+		"Plugin"	"Path_SM/translations/dicemenu.phrases.txt"
+		"Plugin"	"Path_SM/translations/de/dicemenu.phrases.txt"
 		
 		"Source"	"Path_SM/scripting/DiceMenu.sp"
 	}
