@@ -10,7 +10,7 @@ public Plugin:myinfo =
 	name = "DiceMenu",
 	author = "Toast",
 	description = "Provides a menu for the dice Plugin by Popoklopsi",
-	version = "1.0.3",
+	version = "1.0.5",
 	url = "sourcemod.net"
 }
 new Handle:c_DiceText;
@@ -42,21 +42,12 @@ public OnPluginStart()
 	HookEvent("player_disconnect", PlayerDissconnect);
 	HookEvent("player_activate", PlayerJoin);
 	HookEvent("server_cvar", CvarChange);
+
+
+	CreateConVar("dicemenu_text", "dice", "Command to dice (without exclamation mark), convert to UTF-8 without BOM for special characters");
 	
-	c_DiceText = FindConVar("dice_text");
-	c_DiceTeam = FindConVar("dice_team");
-	if(c_DiceText != INVALID_HANDLE){
-		GetConVarString(c_DiceText, DiceText, sizeof(DiceText));
-	}
-	else{
-		CreateConVar("dice_text", "dice", "Command to dice (without exclamation mark), convert to UTF-8 without BOM for special characters");
-	}
-	if(c_DiceTeam != INVALID_HANDLE){
-		DiceTeam = GetConVarInt(c_DiceTeam);
-	}
-	else{
-		CreateConVar("dice_team", "2", "2 = Only T's can dice, 3 = Only CT's can dice, 0 = Everybody can dice");
-	}
+
+	CreateConVar("dicemenu_team", "2", "2 = Only T's can dice, 3 = Only CT's can dice, 0 = Everybody can dice");
 	
 	RegConsoleCmd("sm_dreset", dreset);
 	RegConsoleCmd("sm_dmenu", dmenu2);
@@ -69,7 +60,10 @@ public OnPluginStart()
     }
 	
 	AutoExecConfig();
-	
+	c_DiceTeam = FindConVar("dicemenu_team");
+	c_DiceText = FindConVar("dicemenu_text");
+	DiceTeam = GetConVarInt(c_DiceTeam);
+	GetConVarString(c_DiceText, DiceText, sizeof(DiceText));
 }
 public OnLibraryAdded(const String:name[])
 {
@@ -114,8 +108,8 @@ public Action:dmenu2(client, args)
 }
 public CvarChange(Handle:event, const String:name[], bool:dontBroadcast)
 {
-	c_DiceText = FindConVar("dice_text");
-	c_DiceTeam = FindConVar("dice_team");
+	c_DiceText = FindConVar("dicemenu_text");
+	c_DiceTeam = FindConVar("dicemenu_team");
 	if(c_DiceText != INVALID_HANDLE){
 		GetConVarString(c_DiceText, DiceText, sizeof(DiceText));
 	}
@@ -127,16 +121,18 @@ public PlayerDissconnect(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	new userid;
 	userid = GetEventInt(event, "userid");
-	Dice[userid] = 0;
-	NoDice[userid] = 0;
+	new client = GetClientOfUserId(userid);
+	Dice[client] = 0;
+	NoDice[client] = 0;
 	
 }
 public PlayerJoin(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	new userid;
 	userid = GetEventInt(event, "userid");
-	Dice[userid] = 0;
-	NoDice[userid] = 0;
+	new client = GetClientOfUserId(userid);
+	Dice[client] = 0;
+	NoDice[client] = 0;
 }
 public PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 {
@@ -160,14 +156,14 @@ public PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 					displaymenu(client)
 				}
 			}
-			else if(Dice[userid] == 1)
+			else if(Dice[client] == 1)
 			{
 				CreateTimer(2.0, PerformDice, client);
 			}
 		}
 		else if(DiceTeam == 2 && Team == 2)
 		{
-			if(Dice[userid] == 0 && NoDice[userid] == 0)
+			if(Dice[client] == 0 && NoDice[client] == 0)
 			{
 				if(GetClientTeam(client) != 0 || GetClientTeam(client) != 1)
 				{
@@ -181,14 +177,14 @@ public PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 		}
 		else if(DiceTeam == 3 && Team == 3)
 		{
-			if(Dice[userid] == 0 && NoDice[userid] == 0)
+			if(Dice[client] == 0 && NoDice[client] == 0)
 			{
 				if(GetClientTeam(client) != 0 || GetClientTeam(client) != 1)
 				{
 					displaymenu(client)
 				}
 			}
-			else if(Dice[userid] == 1)
+			else if(Dice[client] == 1)
 			{
 				CreateTimer(2.0, PerformDice, client);
 			}
@@ -204,28 +200,28 @@ public DiceMenuHandler(Handle:menu, MenuAction:action, client, param2)
 		GetMenuItem(menu, param2, info, sizeof(info));
 		if(strcmp(info, "dice") == 0)
 		{
-			Dice[GetClientUserId(client)] = 0;
-			NoDice[GetClientUserId(client)] = 0;
+			Dice[client] = 0;
+			NoDice[client] = 0;
 			FakeClientCommand(client, "sm_%s", DiceText);
 			
 		}
 		else if(strcmp(info, "dicea") == 0)
 		{
-			Dice[GetClientUserId(client)] = 1;
-			NoDice[GetClientUserId(client)] = 0;
+			Dice[client] = 1;
+			NoDice[client] = 0;
 			FakeClientCommand(client, "sm_%s", DiceText);
 			CPrintToChat(client,"%t %t", "prefix", "save");
 			CPrintToChat(client,"%t %t", "prefix", "alert");
 		}
 		else if(strcmp(info, "ndice") == 0)
 		{
-			Dice[GetClientUserId(client)] = 0;
-			NoDice[GetClientUserId(client)] = 0;
+			Dice[client] = 0;
+			NoDice[client] = 0;
 		}
 		else if(strcmp(info, "ndicea") == 0)
 		{
-			Dice[GetClientUserId(client)] = 0;
-			NoDice[GetClientUserId(client)] = 1;
+			Dice[client] = 0;
+			NoDice[client] = 1;
 			CPrintToChat(client,"%t %t", "prefix", "save");
 			CPrintToChat(client,"%t %t", "prefix", "alert");
 		}
@@ -233,8 +229,8 @@ public DiceMenuHandler(Handle:menu, MenuAction:action, client, param2)
 }
 public Action:dreset(client, args)
 {
-	Dice[GetClientUserId(client)] = 0;
-	NoDice[GetClientUserId(client)] = 0;
+	Dice[client] = 0;
+	NoDice[client] = 0;
 	CPrintToChat(client,"%t %t", "prefix", "reset");
 }
 public Action:PerformDice(Handle:timer, any:client)
