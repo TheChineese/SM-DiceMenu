@@ -4,13 +4,14 @@
 	{
 		"Version"
 		{
-			"Latest"	"1.0.4"
+			"Latest"	"1.0.5"
 		}
 		
 		"Notes"	"Changelog:"
 		"Notes"	"Added Full CVar Control"
 		"Notes"	"Added Config for default Values"
 		"Notes"	"Changed C-Var"
+		"Notes"	"Bugfixes"
 	}
 	
 	"Files"
