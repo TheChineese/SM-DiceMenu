@@ -9,9 +9,9 @@ public Plugin:myinfo =
 {
 	name = "DiceMenu",
 	author = "Toast",
-	description = "Provides a menu for the dice Plugin by Popoklopsi",
-	version = "1.0.5",
-	url = "sourcemod.net"
+	description = "Provides a menu for dice plugins",
+	version = "1.0.6",
+	url = "bitbucket.toastdev.de"
 }
 new Handle:c_DiceText;
 new Handle:c_DiceTeam;
@@ -86,21 +86,21 @@ public Action:dmenu2(client, args)
 		{
 			if(GetClientTeam(client) != 0 || GetClientTeam(client) != 1)
 			{
-				displaymenu(client)
+				displaymenu(client);
 			}
 		}
 		else if(DiceTeam == 2 && Team == 2)
 		{
 			if(GetClientTeam(client) != 0 || GetClientTeam(client) != 1)
 			{
-				displaymenu(client)
+				displaymenu(client);
 			}
 		}
 		else if(DiceTeam == 3 && Team == 3)
 		{
 			if(GetClientTeam(client) != 0 || GetClientTeam(client) != 1)
 			{
-				displaymenu(client)
+				displaymenu(client);
 			}
 		}
 	}
@@ -149,7 +149,7 @@ public PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 	{
 		if(DiceTeam == 0)
 		{
-			if(Dice[userid] == 0 && NoDice[userid] == 0)
+			if(Dice[client] == 0 && NoDice[client] == 0)
 			{
 				if(GetClientTeam(client) != 0 || GetClientTeam(client) != 1)
 				{
@@ -170,7 +170,7 @@ public PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 					displaymenu(client)
 				}
 			}
-			else if(Dice[userid] == 1)
+			else if(Dice[client] == 1)
 			{
 				CreateTimer(2.0, PerformDice, client);
 			}
