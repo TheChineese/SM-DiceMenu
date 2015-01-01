@@ -10,7 +10,7 @@ public Plugin:myinfo =
 	name = "DiceMenu",
 	author = "Toast",
 	description = "Provides a menu for dice plugins",
-	version = "1.0.6",
+	version = "1.0.7",
 	url = "bitbucket.toastdev.de"
 }
 new Handle:c_DiceText;
