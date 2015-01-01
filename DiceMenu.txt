@@ -4,11 +4,11 @@
 	{
 		"Version"
 		{
-			"Latest"	"1.0.6"
+			"Latest"	"1.0.7"
 		}
 		
 		"Notes"	"Changelog:"
-		"Notes"	"FIxed a Bug with T Team"
+		"Notes"	"Now using multicolor"
 	}
 	
 	"Files"
