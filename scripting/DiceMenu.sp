@@ -1,5 +1,5 @@
 #include <sourcemod>
-#include <morecolors>
+#include <multicolors>
 #undef REQUIRE_PLUGIN
 #include <updater>
 
@@ -19,6 +19,11 @@ new DiceTeam;
 new NoDice[MAXPLAYERS + 1];
 new Dice[MAXPLAYERS + 1];
 new String:DiceText[64];
+public APLRes:AskPluginLoad2(Handle:myself, bool:late, String:error[], err_max)
+{
+   MarkNativeAsOptional("Updater_AddPlugin");
+   return APLRes_Success;
+}
 public displaymenu(client)
 {
 	new String:string[64];
