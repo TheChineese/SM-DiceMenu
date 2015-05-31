@@ -1,0 +1,48 @@
+﻿"Phrases"
+{
+	"prefix"
+	{
+		"en"		"{fullred}[DiceMenu]"
+		"de"		"{fullred}[DiceMenü]"
+	}
+	"save"
+	{
+		"en"		"{lavender}Saved your dice preferences!"
+		"de"		"{lavender}Deine Würfel-Einstellungen wurden gespeichert!"
+	}
+	"alert"
+	{
+		"en"		"{lavender}Reset your preferences with {navy}!dreset{lavender}, or display the menu again with {navy}!dmenu{lavender}!"
+		"de"		"{lavender}Benutze {navy}!dreset {lavender}um deine Einstellungen zurückzusetzen oder {navy}!dmenu {lavender}um das Menü erneut aufzurufen!"
+	}
+	"reset"
+	{
+		"en"		"{lavender}Reseted your dice preferences!"
+		"de"		"{lavender}Deine Würfel-Einstellungen wurden zurückgesetzt!"
+	}
+	"menutitle"
+	{
+		"en"		"Dice Menu"
+		"de"		"Würfel Menü"
+	}
+	"menu1"
+	{
+		"en"		"Dice"
+		"de"		"Würfeln"
+	}
+	"menu2"
+	{
+		"en"		"Automatic Dice"
+		"de"		"Automatisch würfeln!"
+	}
+	"menu3"
+	{
+		"en"		"Do not dice"
+		"de"		"Nicht würfeln"
+	}
+	"menu4"
+	{
+		"en"		"No Dice anyway"
+		"de"		"Nie Würfeln"
+	}
+}
